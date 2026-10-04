@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <AssemblyName>EntityNexus.Abstractions</AssemblyName>
     <PackageId>ova.EntityNexus.Abstractions</PackageId>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RootNamespace>EntityNexus.Abstractions</RootNamespace>
     <Authors>ovaataaridotru</Authors>
     <PackageTags>entity; orm; domain; dsl; framework</PackageTags>
@@ -18,10 +19,14 @@
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>EntityNexus.Abstractions</Title>
-    <Version>10.7.1</Version>
+    <Version>10.7.2</Version>
     <Copyright>$(Authors)</Copyright>
   </PropertyGroup>
 
+    <ItemGroup>
+      <None Include="docs\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+  
   <ItemGroup>
     <Compile Remove="DomainModel\Interfaces\IKey.cs" />
   </ItemGroup>

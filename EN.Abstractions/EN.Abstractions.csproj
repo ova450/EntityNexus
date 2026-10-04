@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>EntityNexus.Abstractions</AssemblyName>
+    <PackageId>ova.EntityNexus.Abstractions</PackageId>
+    <RootNamespace>EntityNexus.Abstractions</RootNamespace>
+    <Authors>ovaataaridotru</Authors>
+    <PackageTags>entity; orm; domain; dsl; framework</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <Description>Domain model for EntityNexus DSL Framework is absract model for implementing by CodeFirst Entity Framework</Description>
+
+    <RepositoryUrl>https://github.com/ova450/EntityNexus.Core</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>EntityNexus.Abstractions</Title>
+    <Version>10.7.1</Version>
+    <Copyright>$(Authors)</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DomainModel\Interfaces\IKey.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.12" />
+  </ItemGroup>
+  
+</Project>

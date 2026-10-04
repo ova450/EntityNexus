@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="EN.Abstractions/EN.Abstractions.csproj" />
+  <Project Path="EN.Runtime/EN.Runtime.csproj" />
+  <Project Path="EN.Tests/EN.Tests.csproj" />
+</Solution>

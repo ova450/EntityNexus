@@ -1,0 +1,20 @@
+EntityNexus.Core/
+├── README.md
+├── docfx.json
+├── docs/
+│   ├── index.md
+│   ├── philosophy/
+│   │   ├── okasod.md
+│   │   ├── kernel.md
+│   │   └── semantic-topology.md
+│   ├── architecture/
+│   │   ├── namespaces.md
+│   │   ├── packages.md
+│   │   └── dependency-rules.md
+│   ├── guides/
+│   │   ├── getting-started.md
+│   │   └── efcore.md
+│   └── images/
+├── EntityNexus.Core.Interfaces/
+├── EntityNexus.Core.AbstractClasses/
+└── EntityNexus.Core.Samples/

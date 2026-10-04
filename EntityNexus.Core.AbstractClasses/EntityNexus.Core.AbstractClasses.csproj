@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>EntityNexus.Core.AbstractClasses</AssemblyName>
+    <PackageId>EntityNexus.Core.AbstractClasses</PackageId>
+    <RootNamespace>EntityNexus</RootNamespace>
+    <Authors>ovaataaridotru</Authors>
+    <PackageTags>entity; orm; domain; dsl; framework</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <LangVersion>preview</LangVersion>    
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <Description>DSL Runtime Abstract Classes for EntityNexus DSL Framework. This package provides the core abstract classesfor building domain models.</Description>
+
+    <RepositoryUrl>https://github.com/ova450/EntityNexus.Core</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702</NoWarn>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Infrastructure.AbstractClasses.Core\EntityTypeBuilderExtensions.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure.AbstractClasses.Core\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EntityNexus.Core.Interfaces\EntityNexus.Core.Interfaces.csproj" />
+  </ItemGroup>
+  
+</Project>

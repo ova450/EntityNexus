@@ -13,7 +13,7 @@ namespace EntityNexus.Abstractions.DomainService;
 /// <typeparam name="TEntity"></typeparam>
 /// <typeparam name="TKey"></typeparam>
 /// <param name="context"></param>
-public class RepositoryAbstract<TEntity, TKey>(ContextAbstract context) : IRepository<TEntity, TKey>
+public class ARepository<TEntity, TKey>(ADbContext context) : IRepository<TEntity, TKey>
     where TEntity : class, IEntity<TKey>
     where TKey : IEquatable<TKey>
 {
@@ -56,7 +56,7 @@ public class RepositoryAbstract<TEntity, TKey>(ContextAbstract context) : IRepos
         => _dbSet.CountAsync(cancellationToken);
 }
 
-public class RepositoryAbstract<TEntity>(ContextAbstract context) 
-    : RepositoryAbstract<TEntity, int>(context)
+public class ARepository<TEntity>(ADbContext context) 
+    : ARepository<TEntity, int>(context)
     , IRepository<TEntity, int>
     where TEntity : class, IEntity<int>;

@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using EntityNexus.Abstractions.DomainModel.Automation;
 
-namespace EntityNexus.Infrastructure.AbstractClasses.Core
+using Microsoft.EntityFrameworkCore;
+
+namespace EntityNexus.Abstractions.DomainService
 {
     /// <summary>
     /// Абстрактный базовый класс для DbContext в EntityNexus.

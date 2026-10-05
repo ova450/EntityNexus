@@ -1,4 +1,4 @@
-namespace EntityNexus.Abstractions.DomainModel;
+namespace EntityNexus.Abstractions.DomainModel.Abstracts;
 
 /// <summary>
 /// Абстрактный базовый класс для именованных сущностей.

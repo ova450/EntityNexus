@@ -1,6 +1,6 @@
 using EntityNexus.Abstractions.DomainModel.Interfaces;
 
-namespace EntityNexus.Abstractions.DomainModel;
+namespace EntityNexus.Abstractions.DomainModel.Abstracts;
 
 /// <summary>
 /// Абстрактная базовая реализация сущности с типизированным ключом.

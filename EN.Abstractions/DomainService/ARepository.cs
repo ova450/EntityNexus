@@ -1,3 +1,4 @@
+
 using EntityNexus.Abstractions.DomainModel.Interfaces;
 using EntityNexus.Abstractions.DomainService.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -5,14 +6,12 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EntityNexus.Abstractions.DomainService;
 
-//public class RepositoryAbstract<TEntity>(ContextAbstract context) : RepositoryAbstract<TEntity,int>(context);
-
 /// <summary>
-/// Опущены методы Count и CountAsync, так как они доступны через IQueryable GetAll().
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
 /// <typeparam name="TKey"></typeparam>
 /// <param name="context"></param>
+/// <remarks>Опущены методы Count и CountAsync, так как они доступны через IQueryable GetAll().</remarks>
 public class ARepository<TEntity, TKey>(ADbContext context) : IRepository<TEntity, TKey>
     where TEntity : class, IEntity<TKey>
     where TKey : IEquatable<TKey>

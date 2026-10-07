@@ -2,7 +2,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace EntityNexus.Abstractions.DomainService.Automation
+namespace EntityNexus.Infrastructure.AbstractClasses.Core
 {
     /// <summary>
     /// Класс расширений (extensions) для <see cref="EntityTypeBuilder{TEntity}"/>.

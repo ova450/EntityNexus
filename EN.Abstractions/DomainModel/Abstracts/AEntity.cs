@@ -5,13 +5,13 @@ namespace EntityNexus.Abstractions.DomainModel.Abstracts;
 /// <summary>
 /// Абстрактная базовая реализация сущности с типизированным ключом.
 /// </summary>
-/// <typeparam name="TKey">Тип первичного ключа сущности. Должен реализовывать <see cref="IEquatable{T}"/>.</typeparam>
-public abstract class AEntity<TKey> : IEntity<TKey> where TKey : IEquatable<TKey>
+/// <typeparam name="TIdKey">Тип первичного ключа сущности. Должен реализовывать <see cref="IEquatable{T}"/>.</typeparam>
+public abstract class AEntity<TIdKey> : IEntity<TIdKey> where TIdKey : IEquatable<TIdKey>
 {
     /// <summary>
     /// Уникальный идентификатор сущности.
     /// </summary>
-    public TKey Id { get; set; } = default!;
+    public TIdKey Id { get; set; } = default!;
 }
 
 /// <summary>

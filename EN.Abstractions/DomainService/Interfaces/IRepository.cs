@@ -3,9 +3,6 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EntityNexus.Abstractions.DomainService.Interfaces;
 
-/// <summary>
-/// Методы сохранения для репозитория.
-/// </summary>
 public interface IRepository<TEntity> : IRepository<TEntity, int> where TEntity : class, IEntity;
 
 public interface IRepository<TEntity, TKey>

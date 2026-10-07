@@ -19,9 +19,17 @@
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>EntityNexus.Abstractions</Title>
-    <Version>10.7.2</Version>
+    <Version>10.7.3</Version>
     <Copyright>$(Authors)</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DomainModel\Interfaces\IHasChild.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="DomainService\ADbContext.cs~RF4dcf3274.TMP" />
+  </ItemGroup>
 
     <ItemGroup>
       <None Include=".docs\README.md" Pack="true" PackagePath="\" />

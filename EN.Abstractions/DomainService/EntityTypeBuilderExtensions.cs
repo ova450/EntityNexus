@@ -23,7 +23,11 @@ namespace EntityNexus.Infrastructure.AbstractClasses.Core
             Expression<Func<TEntity, bool>> propertyExpression)
             where TEntity : class
         {
-            // Реализация фильтра
+            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            if (propertyExpression == null) throw new ArgumentNullException(nameof(propertyExpression));
+
+            // Применяем глобальный фильтр для soft-delete
+            builder.HasQueryFilter(propertyExpression);
             return builder;
         }
 
@@ -41,7 +45,11 @@ namespace EntityNexus.Infrastructure.AbstractClasses.Core
             int maxLength)
             where TEntity : class
         {
-            // Реализация
+            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            if (propertyExpression == null) throw new ArgumentNullException(nameof(propertyExpression));
+            if (maxLength <= 0) throw new ArgumentOutOfRangeException(nameof(maxLength));
+
+            builder.Property(propertyExpression).IsRequired().HasMaxLength(maxLength);
             return builder;
         }
 

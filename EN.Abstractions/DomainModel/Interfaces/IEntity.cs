@@ -13,7 +13,5 @@ public interface IEntity<TKey> where TKey : IEquatable<TKey>
     TKey Id { get; set; }
 }
 
-/// <summary>
-/// Упрощённая версия базового интерфейса сущности с ключом типа <see cref="int"/>.
-/// </summary>
-public interface IEntity : IEntity<int> { }
+// Упрощенный маркерный интерфейс
+public interface IEntity : IEntity<int>;

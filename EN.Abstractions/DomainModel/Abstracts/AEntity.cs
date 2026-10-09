@@ -17,7 +17,7 @@ public abstract class AEntity<TIdKey> : IEntity<TIdKey> where TIdKey : IEquatabl
 /// <summary>
 /// Упрощённая абстрактная реализация сущности с ключом типа <see cref="int"/>.
 /// </summary>
-public abstract class AEntity : IEntity
+public abstract class AEntity : IEntity, IEntity<int>
 {
     /// <summary>
     /// Уникальный идентификатор сущности.

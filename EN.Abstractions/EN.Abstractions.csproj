@@ -13,13 +13,13 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <Description>Domain model for EntityNexus DSL Framework is absract model for implementing by CodeFirst Entity Framework</Description>
+    <Description>Domain model for EntityNexus DSL Framework is abstract model for implementing by CodeFirst Entity Framework</Description>
 
     <RepositoryUrl>https://github.com/ova450/EntityNexus.Core</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>EntityNexus.Abstractions</Title>
-    <Version>10.7.3</Version>
+    <Version>10.7.10</Version>
     <Copyright>$(Authors)</Copyright>
   </PropertyGroup>
 

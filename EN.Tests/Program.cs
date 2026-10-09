@@ -1,55 +1,51 @@
 ﻿
+using EN.Tests;
+using EntityNexus.Abstractions.DomainModel.Abstracts;
+using EntityNexus.Abstractions.DomainService;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using EntityNexus.Abstractions.DomainService;
-using System.Reflection;
 
 // Создадим простой хост для демонстрации работы ADbContext
 var builder = Host.CreateDefaultBuilder(args: Array.Empty<string>())
-    .ConfigureAppConfiguration((ctx, cfg) =>
-    {
-        cfg.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-    })
-    .ConfigureServices((ctx, services) =>
-    {
-        // Конфигурация in-memory БД для тестирования
-        services.AddDbContext<DemoDbContext>(options =>
-            options.UseInMemoryDatabase("EN_Test_Db"));
-    });
+    .ConfigureAppConfiguration((ctx, cfg) => cfg.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true))
+    //// Конфигурация in-memory БД для тестирования
+    //.ConfigureServices((ctx, srv) => srv.AddDbContext<DemoDbContext>(options => options.UseInMemoryDatabase("EN_Test_Db")))
+    // Конфигурация SQL-сервер БД для тестирования
+    .ConfigureServices((ctx, srv) => srv.AddDbContext<DemoDbContext>(options =>
+    options.UseSqlServer(ctx.Configuration.GetConnectionString("DefaultConnection"))))
+    ;
 
 using var host = builder.Build();
 
 // Инициализация БД и пример создания сущности
-using (var scope = host.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<DemoDbContext>();
+using var scope = host.Services.CreateScope();
+var db = scope.ServiceProvider.GetRequiredService<DemoDbContext>();
 
-    // Создаём и сохраняем пример сущности
-    var example = new DemoPrimary { Id = 1, Name = "Primary 1" };
-    db.Set<DemoPrimary>().Add(example);
+// В тестовой среде предпочитаем явно управлять созданием/очисткой БД
+db.Database.EnsureDeleted();
+db.Database.EnsureCreated();
+
+//// Пример добавления данных, если требуется
+//if (!db.Set<DemoPrimary>().Any())
+//{
+//    db.Set<DemoPrimary>().Add(new DemoPrimary { Name = "Primary 1" });
+//    db.Set<DemoPrimary>().Add(new DemoPrimary { Name = "Primary 2" });
+//    db.Set<DemoDependent>().Add(new DemoDependent { Name = "Dependent 1" });
     db.SaveChanges();
-
-    Console.WriteLine("DemoPrimary saved. Count: " + db.Set<DemoPrimary>().Count());
-}
-
-Console.WriteLine("Done.");
+//}
 
 // Локальные тестовые типы и контекст
-public class DemoDbContext : ADbContext
-{
-    public DemoDbContext(DbContextOptions<DemoDbContext> options) : base(options) { }
+public class DemoDbContext(DbContextOptions<DemoDbContext> options) : ADbContext(options);
 
-    protected override Assembly GetDomainAssembly() => typeof(DemoPrimary).Assembly;
-}
-
-public class DemoPrimary : EntityNexus.Abstractions.DomainModel.Abstracts.AEntity<int>
+public class DemoPrimary : AEntity, IName
 {
     public string Name { get; set; } = string.Empty;
 }
 
-public class DemoDependent : EntityNexus.Abstractions.DomainModel.Abstracts.AEntityDependent<int, DemoPrimary>
+public class DemoDependent : AEntityDependent<DemoPrimary>, IName
 {
+    public string? Name { get; set; }
     public string? Note { get; set; }
 }

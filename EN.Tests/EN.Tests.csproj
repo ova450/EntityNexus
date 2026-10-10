@@ -14,8 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
-    <PackageReference Include="ova.EntityNexus.Abstractions" Version="10.7.10" />
-    <!--<PackageReference Include="ova.EntityNexus.Abstractions" Version="10.7.8" />-->
+    <PackageReference Include="ova.EntityNexus.Abstractions" Version="10.7.12" />
   </ItemGroup>
 
   <ItemGroup>

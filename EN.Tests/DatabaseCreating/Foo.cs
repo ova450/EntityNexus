@@ -1,71 +1,48 @@
 ﻿using EntityNexus.Abstractions.DomainModel.Abstracts;
-using EntityNexus.Abstractions.DomainModel.Interfaces;
-// using System.Collections.Generic; // больше не требуется
 
 namespace EN.Tests.DatabaseCreating;
 
-// Тестовая цепочка «Foo» — такая же, как «Bar», но в середине (Foo2) сделана попытка добавить вторую
-// родительскую связь — на Bar2. Фактическая ER-диаграмма: цепочка Foo <— Foo1 <— Foo2 <— Foo3 <— Foo4 <— Foo5
-// построена полностью, а связи между Foo2 и Bar2 НЕТ (см. комментарий к Foo2).
+// Тестовая цепочка «Foo» — такая же, как «Bar», но в середине (Foo2) добавлена вторая родительская связь на Bar2. В рамках EntityNexus Free создание второй и более родительских связей не поддерживается. Поэтому, чтобы EF Core создал вторую конвенционную связь (первая создается наследованием), вторую связь и последующие связи надо добавить явно.
 
-/// <summary>Корень цепочки Foo. Не имеет родителя; наследует <see cref="AEntity"/> (ключ <see cref="int"/>).</summary>
-internal class Foo : AEntity, IName { public string? Name { get; set; } = "Foo"; }
+/// <summary>
+/// Родительская сущность, корень цепочки Foo. Не имеет родителя; наследует абстрактный класс <see cref="AEntity"/> (с ключом <see cref="int"/> по умолчанию).
+/// </summary>
+internal class Foo : AEntity;
 
-/// <summary>Зависит от <see cref="Foo"/>.</summary>
-internal class Foo1 : AEntityDependent<Foo>, IName { public string? Name { get; set; } = "Foo1"; }
+/// <summary>
+/// Дочерняя/родительская сущность <see cref="Foo1"/> содержит внешний ключ Foo1.PrimaryEntityId на Foo.Id.
+/// </summary>
+internal class Foo1 : AEntityDependent<Foo>;
 
 // Foo2 объявлен ниже, после Foo5, — вместе с попыткой второй родительской связи.
-//internal class Foo2 : AEntityDependent<Foo1>, IName { public string? Name { get; set; } = "Foo2"; }
+//internal class Foo2 : AEntityDependent<Foo1>2";
 
-/// <summary>Зависит от <see cref="Foo2"/>.</summary>
-internal class Foo3 : AEntityDependent<Foo2>, IName { public string? Name { get; set; } = "Foo3"; }
-
-/// <summary>Зависит от <see cref="Foo3"/>.</summary>
-internal class Foo4 : AEntityDependent<Foo3>, IName { public string? Name { get; set; } = "Foo4"; }
-
-/// <summary>Зависит от <see cref="Foo4"/>. Конец цепочки.</summary>
-internal class Foo5 : AEntityDependent<Foo4>, IName { public string? Name { get; set; } = "Foo5"; }
-
-// TODO: либо реализовать вторую связь по рекомендации из описания ниже, либо оставить Foo2 как негативный тест
-// и зафиксировать это в документации (в README сейчас сказано лишь «добавить вручную»).
 /// <summary>
-/// Звено цепочки Foo: зависит от <see cref="Foo1"/> и — по замыслу теста — ещё и от <c>Bar2</c>
-/// (эксперимент со второй родительской связью).
+/// Дочерняя/родительская сущность <see cref="Foo3"/> содержит внешний ключ Foo3.PrimaryEntityId на Foo2.Id.
 /// </summary>
-/// <remarks>
-/// <para>
-/// ИТОГ ЭКСПЕРИМЕНТА (по реальной ER-диаграмме EN.Tests): работает только основная связь Foo2 → Foo1.
-/// Связь Foo2 → Bar2 в БД НЕ создаётся: у таблицы Foo2 один внешний ключ <c>PrimaryEntityId</c>, и он ведёт на Foo1.
-/// </para>
-/// <para>Почему так происходит:</para>
-/// <list type="number">
-/// <item>
-/// <description>
-/// Навигационное свойство на <c>Bar2</c> реализовано явно (explicit interface implementation), то есть оно не
-/// public. EF Core такие свойства по конвенциям не обнаруживает и в модель не включает.
-/// </description>
-/// </item>
-/// <item>
-/// <description>
-/// Член <c>PrimaryEntityId</c> интерфейса <c>IPrimaryEntity&lt;int, Bar2&gt;</c> удовлетворяется тем же
-/// публичным свойством, которое Foo2 унаследовал от <see cref="AEntityDependent{TPrimaryEntity}"/>. Отдельного
-/// внешнего ключа для Bar2 нет, а один и тот же столбец не может одновременно ссылаться на Foo1 и на Bar2.
-/// </description>
-/// </item>
-/// </list>
-/// <para>
-/// Для рабочей второй связи нужны отдельное публичное внешнее-ключевое свойство (например, <c>Bar2Id</c>) и
-/// публичная навигация (<c>Bar2</c>); при необходимости — явная настройка связи в <c>OnModelCreating</c>.
-/// Этот случай относится к ограничениям EN Free (см. README: «Навигационные свойства сущностей»).
-/// </para>
-/// </remarks>
-internal class Foo2  : AEntityDependent<Foo1>, IName, IEntity
+internal class Foo3 : AEntityDependent<Foo2>;
+
+/// <summary>
+/// Дочерняя/родительская сущность <see cref="Foo4"/> содержит внешний ключ Foo4.PrimaryEntityId на Foo3.Id.
+/// </summary>
+internal class Foo4 : AEntityDependent<Foo3>;
+
+/// <summary>
+/// Дочерняя/родительская сущность <see cref="Foo5"/> содержит внешний ключ Foo5.PrimaryEntityId на Foo4.Id.
+/// </summary>
+internal class Foo5 : AEntityDependent<Foo4>;
+
+/// <summary>
+/// Пример класса, который наследует <see cref="AEntityDependent{TParent}"/> и пытается добавить вторую родительскую связь.
+/// В рамках EntityNexus Free создание второй и более родительских связей не поддерживается. Поэтому, чтобы EF Core создал вторую конвенционную связь (первая создается наследованием), вторую связь и последующие связи надо добавить явно. 
+/// </summary>
+internal class Foo2 : AEntityDependent<Foo1>
 {
-    public string? Name { get; set; } = "Foo2";
+    public string? Name { get; set; }
 
     /// <summary>
-    /// Навигационное свойство на единственную дочернюю сущность <see cref="Bar2"/>.
-    /// Добавлено публичное свойство внешнего ключа <c>Bar2Id</c>, чтобы EF Core явным образом
+    /// Навигационное свойство на вторую родительскую сущность <see cref="Bar2"/>.
+    /// Добавлено публичное свойство внешнего ключа <c>Foo2Id</c>, чтобы EF Core явным образом
     /// создал отдельный FK для этой связи.
     /// </summary>
     public int? Bar2Id { get; set; }

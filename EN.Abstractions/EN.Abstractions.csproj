@@ -19,8 +19,9 @@
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>EntityNexus.Abstractions</Title>
-    <Version>10.7.10</Version>
+    <Version>10.7.12</Version>
     <Copyright>$(Authors)</Copyright>
+    <PackageOutputPath>$(MSBuildProjectDirectory)\..\.packages\</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
